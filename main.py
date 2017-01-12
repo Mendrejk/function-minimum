@@ -1,5 +1,6 @@
 from math import inf, sin, cos
 from random import uniform
+import matplotlib.pyplot as plt
 
 
 def randic(dic, f, min):
@@ -35,11 +36,20 @@ def main():
         print('Enter a range for random values to be generated from. ',)
         customrangemin = int(input('Input the minimal value, default is -10 ',) or -10)
         customrangemax = int(input('Input the maximal value, default is 10 ',) or 10)
+
         cusrandic(rands, f, customrangemin, customrangemax)
         print('Random values: {}'.format(rands))
+        minimum = findmin(rands)
+
         # for i in rands:
         #     print(rands[i])
-        print('mini:', findmin(rands))
+
+        print('minimum:', minimum)
+        fx = [x/1000 for x in range(customrangemin*(10**3), customrangemax*(10**3))]
+
+        plt.plot(fx, [f(x) for x in fx], [x for x, y in rands.items() if y == minimum], minimum, 'ro')
+        plt.show()
+
     elif which == 'no':
         pass
 
