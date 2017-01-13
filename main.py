@@ -7,7 +7,7 @@ def randic(dic, f, min):
     pass
 
 
-def cusrandic(dic, f, cusmin, cusmax, amount=500):
+def cusrandic(dic, f, cusmin, cusmax, amount=20000):
     for i in range(amount):
         randnum = uniform(cusmin, cusmax)
         if randnum not in dic.items():
@@ -17,10 +17,13 @@ def cusrandic(dic, f, cusmin, cusmax, amount=500):
 
 
 def findmin(dic):
-    mini = inf
+    mini = [inf]
     for i in dic:
-        if dic[i] < mini:
-            mini = dic[i]
+        if dic[i] < mini[0]:
+            mini = []
+            mini.append(dic[i])
+        elif dic[i] == mini[0]:
+            mini.append(dic[i])
     return mini
 
 
@@ -45,9 +48,9 @@ def main():
         #     print(rands[i])
 
         print('minimum:', minimum)
-        fx = [x/1000 for x in range(customrangemin*(10**3), customrangemax*(10**3))]
+        fx = [x/10**3 for x in range(customrangemin*(10**3), customrangemax*(10**3))]
 
-        plt.plot(fx, [f(x) for x in fx], [x for x, y in rands.items() if y == minimum], minimum, 'ro')
+        plt.plot(fx, [f(x) for x in fx], [x for x, y in rands.items() if y == minimum[0]], [minimum], 'ro')
         plt.show()
 
     elif which == 'no':
